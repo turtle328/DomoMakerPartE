@@ -2,8 +2,8 @@
   "name": "Logins",
   "version": "1.0.0",
   "engines": {
-    "node": "12.16.0",
-    "npm": "6.13.7"
+    "node": ">=12.16.0",
+    "npm": ">=6.13.7"
   },
   "description": "A Simple Login Example using Node.js, Mongo and Redis",
   "main": "./server/app.js",
@@ -24,7 +24,7 @@
   "author": "Cody Van De Mark",
   "license": "Apache 2.0",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.13.14",
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "eslint": "^6.8.0",
@@ -42,7 +42,7 @@
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
     "helmet": "^3.21.3",
-    "mongoose": "^5.9.5",
+    "mongoose": "^5.12.2",
     "redis": "^3.0.2",
     "serve-favicon": "^2.5.0",
     "underscore": "^1.9.2"
