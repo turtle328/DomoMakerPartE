@@ -84,8 +84,8 @@ const getToken = (request, response) => {
   };
 
   res.json(csrfJSON);
-}
+};
 
 module.exports = {
-  loginPage, logout, login, signup, getToken
+  loginPage, logout, login, signup, getToken,
 };

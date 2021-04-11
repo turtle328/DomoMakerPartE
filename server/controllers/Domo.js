@@ -21,6 +21,7 @@ const makeDomo = (req, res) => {
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    height: req.body.height,
     owner: req.session.account._id,
   };
 
@@ -56,4 +57,17 @@ const getDomos = (request, response) => {
   });
 };
 
-module.exports = { makerPage, make: makeDomo, getDomos };
+const deleteDomo = (req, res) => {
+  Domo.DomoModel.deleteById(req.body.id, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.json({ message: 'Domo successfully deleted' });
+  });
+};
+
+module.exports = {
+  makerPage, make: makeDomo, getDomos, deleteDomo,
+};

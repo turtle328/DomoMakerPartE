@@ -1,5 +1,7 @@
 "use strict";
 
+var csrfToken;
+
 var handleDomo = function handleDomo(e) {
   e.preventDefault();
   $("#domoMessage").animate({
@@ -15,6 +17,14 @@ var handleDomo = function handleDomo(e) {
     loadDomosFromServer();
   });
   return false;
+};
+
+var deleteDomo = function deleteDomo(id) {
+  console.log("Deleting domo");
+  var data = "id=".concat(id, "&_csrf=").concat(csrfToken);
+  sendAjax('DELETE', '/deleteDomo', data, function () {
+    loadDomosFromServer();
+  });
 };
 
 var DomoForm = function DomoForm(props) {
@@ -39,6 +49,14 @@ var DomoForm = function DomoForm(props) {
     type: "text",
     name: "age",
     placeholder: "Domo Age"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "height"
+  }, "Height: "), /*#__PURE__*/React.createElement("input", {
+    id: "domoHeight",
+    type: "number",
+    name: "height",
+    placeholder: "Enter domo height (in cm)",
+    required: true
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -70,8 +88,16 @@ var DomoList = function DomoList(props) {
     }), /*#__PURE__*/React.createElement("h3", {
       className: "domoName"
     }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
-      "class": "domoAge"
-    }, " Age: ", domo.age, " "));
+      className: "domoAge"
+    }, " Age: ", domo.age, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "domoHeight"
+    }, " Height: ", domo.height), /*#__PURE__*/React.createElement("i", {
+      className: "fa fa-trash",
+      "aria-hidden": "true",
+      onClick: function onClick() {
+        return deleteDomo(domo._id);
+      }
+    }));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "domoList"
@@ -87,6 +113,7 @@ var loadDomosFromServer = function loadDomosFromServer() {
 };
 
 var setup = function setup(csrf) {
+  csrfToken = csrf;
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
     csrf: csrf
   }), document.querySelector("#makeDomo"));
