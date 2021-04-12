@@ -1,5 +1,3 @@
-let csrfToken;
-
 const handleDomo = (e) => {
   e.preventDefault();
 
@@ -19,7 +17,8 @@ const handleDomo = (e) => {
 
 const deleteDomo = (id) => {
   console.log("Deleting domo");
-  const data = `id=${id}&_csrf=${csrfToken}`;
+  const csrf = document.querySelector('input[name="_csrf"]').value;
+  const data = `id=${id}&_csrf=${csrf}`;
   sendAjax('DELETE', '/deleteDomo', data, () => {
     loadDomosFromServer();
   });
@@ -77,8 +76,6 @@ const loadDomosFromServer = () => {
 };
 
 const setup = function (csrf) {
-  csrfToken = csrf;
-
   ReactDOM.render(
     <DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
   );

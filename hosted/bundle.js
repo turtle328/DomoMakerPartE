@@ -1,7 +1,5 @@
 "use strict";
 
-var csrfToken;
-
 var handleDomo = function handleDomo(e) {
   e.preventDefault();
   $("#domoMessage").animate({
@@ -21,7 +19,8 @@ var handleDomo = function handleDomo(e) {
 
 var deleteDomo = function deleteDomo(id) {
   console.log("Deleting domo");
-  var data = "id=".concat(id, "&_csrf=").concat(csrfToken);
+  var csrf = document.querySelector('input[name="_csrf"]').value;
+  var data = "id=".concat(id, "&_csrf=").concat(csrf);
   sendAjax('DELETE', '/deleteDomo', data, function () {
     loadDomosFromServer();
   });
@@ -113,7 +112,6 @@ var loadDomosFromServer = function loadDomosFromServer() {
 };
 
 var setup = function setup(csrf) {
-  csrfToken = csrf;
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
     csrf: csrf
   }), document.querySelector("#makeDomo"));
